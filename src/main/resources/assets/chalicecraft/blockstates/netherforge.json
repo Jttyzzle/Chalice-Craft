@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "chalicecraft:block/netherforge"
+    },
+    "facing=east": {
+      "model": "chalicecraft:block/netherforge",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "chalicecraft:block/netherforge",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "chalicecraft:block/netherforge",
+      "y": 270
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "chalicecraft:block/reinforcedcraftingtable"
+    },
+    "facing=east": {
+      "model": "chalicecraft:block/reinforcedcraftingtable",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "chalicecraft:block/reinforcedcraftingtable",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "chalicecraft:block/reinforcedcraftingtable",
+      "y": 270
+    }
+  }
+}

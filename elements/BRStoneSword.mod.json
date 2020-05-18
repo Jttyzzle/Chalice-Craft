@@ -1,0 +1,26 @@
+{
+  "_fv": 6,
+  "_type": "tool",
+  "definition": {
+    "renderType": 0,
+    "texture": "tonelaze",
+    "customModelName": "Normal",
+    "name": "Fiery Stone Sword",
+    "creativeTab": {
+      "value": "COMBAT"
+    },
+    "toolType": "Sword",
+    "harvestLevel": 0,
+    "efficiency": 4.0,
+    "attackSpeed": 1.6,
+    "enchantability": 10,
+    "damageVsEntity": 5.0,
+    "usageCount": 1561,
+    "blocksAffected": [],
+    "hasGlow": false,
+    "repairItems": [],
+    "onCrafted": {
+      "name": "BRDiamondSwordItemIsCraftedsmelted"
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "_fv": 6,
+  "_type": "gui",
+  "definition": {
+    "type": 1,
+    "width": 352,
+    "height": 332,
+    "renderBgLayer": true,
+    "components": [
+      {
+        "type": "label",
+        "data": {
+          "text": "Sword Skill Tree",
+          "color": {
+            "value": -1,
+            "falpha": 0.0
+          },
+          "name": "Sword Skill Tree",
+          "x": 345,
+          "y": 112
+        }
+      },
+      {
+        "type": "inputslot",
+        "data": {
+          "inputLimit": {
+            "value": "CUSTOM:BnDiamondSword"
+          },
+          "id": 0,
+          "name": "Slot #0",
+          "x": 268,
+          "y": 153
+        }
+      },
+      {
+        "type": "outputslot",
+        "data": {
+          "id": 1,
+          "name": "Slot #1",
+          "x": 552,
+          "y": 193
+        }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": "I",
+          "width": 20,
+          "height": 40,
+          "name": "I",
+          "x": 324,
+          "y": 150
+        }
+      }
+    ]
+  }
+}

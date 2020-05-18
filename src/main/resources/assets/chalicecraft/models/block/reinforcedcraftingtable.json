@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "chalicecraft:blocks/reinforced-top",
+    "up": "chalicecraft:blocks/reinforced-top",
+    "north": "chalicecraft:blocks/reinforced_front",
+    "east": "chalicecraft:blocks/reinforced-side",
+    "south": "chalicecraft:blocks/reinforced_front",
+    "west": "chalicecraft:blocks/reinforced-side",
+    "particle": "chalicecraft:blocks/reinforced-top"
+  }
+}
