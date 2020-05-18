@@ -1,7 +1,9 @@
 {
+  "advancements.chaliceadv.title": "The Chalice Effect",
   "item.chalicecraft.brironsword": "Fiery Iron Sword",
   "item.chalicecraft.bndiamondsword": "Undead Diamond Sword",
   "item.chalicecraft.brwoodsword": "Fiery Wooden Sword",
+  "item.chalicecraft.goldenchalice": "Golden Chalice",
   "item.chalicecraft.bnwoodsword": "Undead Wooden Sword",
   "item.chalicecraft.brstonesword": "Fiery Stone Sword",
   "block.chalicecraft.reinforcedcraftingtable": "Reinforced Crafting Table",
@@ -9,6 +11,8 @@
   "item.chalicecraft.bnstonesword": "Undead Stone Sword",
   "item.chalicecraft.bnironsword": "Undead Iron Sword",
   "block.chalicecraft.netherforge": "Nether Forge",
+  "advancements.chaliceadv.descr": "The Chalice Effect.",
   "item.chalicecraft.brgoldsword": "Fiery Gold Sword",
-  "item.chalicecraft.bngoldsword": "Undead Gold Sword"
+  "item.chalicecraft.bngoldsword": "Undead Gold Sword",
+  "item.chalicecraft.thechalice": "The Chalice"
 }

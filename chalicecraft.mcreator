@@ -252,15 +252,141 @@
       "compiles": true,
       "locked_code": false,
       "ids": {}
+    },
+    {
+      "name": "GoldenChalice",
+      "type": "food",
+      "sortid": 28,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {}
+    },
+    {
+      "name": "Chalice",
+      "type": "procedure",
+      "sortid": 29,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ChaliceRecipe",
+      "type": "recipe",
+      "sortid": 30,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {}
+    },
+    {
+      "name": "TheChalice",
+      "type": "item",
+      "sortid": 28,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {}
+    },
+    {
+      "name": "ChaliceAdv",
+      "type": "achievement",
+      "sortid": 31,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {}
+    },
+    {
+      "name": "NetherForgeTakenfromSlot",
+      "type": "procedure",
+      "sortid": 32,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ]
+      }
+    },
+    {
+      "name": "NetherForgeOnBlockRightClicked",
+      "type": "procedure",
+      "sortid": 33,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "x",
+            "type": "int"
+          },
+          {
+            "name": "y",
+            "type": "int"
+          },
+          {
+            "name": "z",
+            "type": "int"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "NetherForgeUpdateTick",
+      "type": "procedure",
+      "sortid": 34,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "int"
+          },
+          {
+            "name": "y",
+            "type": "int"
+          },
+          {
+            "name": "z",
+            "type": "int"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
     }
   ],
   "variable_elements": [],
   "sound_elements": [],
   "language_map": {
     "en_us": {
+      "advancements.chaliceadv.title": "The Chalice Effect",
       "item.chalicecraft.brironsword": "Fiery Iron Sword",
       "item.chalicecraft.bndiamondsword": "Undead Diamond Sword",
       "item.chalicecraft.brwoodsword": "Fiery Wooden Sword",
+      "item.chalicecraft.goldenchalice": "Golden Chalice",
       "item.chalicecraft.bnwoodsword": "Undead Wooden Sword",
       "item.chalicecraft.brstonesword": "Fiery Stone Sword",
       "block.chalicecraft.reinforcedcraftingtable": "Reinforced Crafting Table",
@@ -268,8 +394,10 @@
       "item.chalicecraft.bnstonesword": "Undead Stone Sword",
       "item.chalicecraft.bnironsword": "Undead Iron Sword",
       "block.chalicecraft.netherforge": "Nether Forge",
+      "advancements.chaliceadv.descr": "The Chalice Effect.",
       "item.chalicecraft.brgoldsword": "Fiery Gold Sword",
-      "item.chalicecraft.bngoldsword": "Undead Gold Sword"
+      "item.chalicecraft.bngoldsword": "Undead Gold Sword",
+      "item.chalicecraft.thechalice": "The Chalice"
     }
   },
   "workspaceSettings": {

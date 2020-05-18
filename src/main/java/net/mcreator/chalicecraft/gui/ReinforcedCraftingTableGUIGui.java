@@ -15,12 +15,15 @@ import net.minecraft.world.World;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
@@ -28,6 +31,7 @@ import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.Minecraft;
 
 import net.mcreator.chalicecraft.ChaliceCraftElements;
+import net.mcreator.chalicecraft.ChaliceCraft;
 
 import java.util.function.Supplier;
 import java.util.Map;
@@ -73,6 +77,23 @@ public class ReinforcedCraftingTableGUIGui extends ChaliceCraftElements.ModEleme
 			this.entity = inv.player;
 			this.world = inv.player.world;
 			this.internal = new Inventory(0);
+			if (extraData != null) {
+				BlockPos pos = extraData.readBlockPos();
+				this.x = pos.getX();
+				this.y = pos.getY();
+				this.z = pos.getZ();
+				TileEntity ent = inv.player != null ? inv.player.world.getTileEntity(pos) : null;
+				if (ent instanceof IInventory)
+					this.internal = (IInventory) ent;
+			}
+			internal.openInventory(inv.player);
+			int si;
+			int sj;
+			for (si = 0; si < 3; ++si)
+				for (sj = 0; sj < 9; ++sj)
+					this.addSlot(new Slot(inv, sj + (si + 1) * 9, 0 + 8 + sj * 18, 0 + 84 + si * 18));
+			for (si = 0; si < 9; ++si)
+				this.addSlot(new Slot(inv, si, 0 + 8 + si * 18, 0 + 142));
 		}
 
 		public Map<Integer, Slot> get() {
@@ -82,6 +103,140 @@ public class ReinforcedCraftingTableGUIGui extends ChaliceCraftElements.ModEleme
 		@Override
 		public boolean canInteractWith(PlayerEntity player) {
 			return internal.isUsableByPlayer(player);
+		}
+
+		@Override
+		public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
+			ItemStack itemstack = ItemStack.EMPTY;
+			Slot slot = (Slot) this.inventorySlots.get(index);
+			if (slot != null && slot.getHasStack()) {
+				ItemStack itemstack1 = slot.getStack();
+				itemstack = itemstack1.copy();
+				if (index < 0) {
+					if (!this.mergeItemStack(itemstack1, 0, this.inventorySlots.size(), true)) {
+						return ItemStack.EMPTY;
+					}
+					slot.onSlotChange(itemstack1, itemstack);
+				} else if (!this.mergeItemStack(itemstack1, 0, 0, false)) {
+					if (index < 0 + 27) {
+						if (!this.mergeItemStack(itemstack1, 0 + 27, this.inventorySlots.size(), true)) {
+							return ItemStack.EMPTY;
+						}
+					} else {
+						if (!this.mergeItemStack(itemstack1, 0, 0 + 27, false)) {
+							return ItemStack.EMPTY;
+						}
+					}
+					return ItemStack.EMPTY;
+				}
+				if (itemstack1.getCount() == 0) {
+					slot.putStack(ItemStack.EMPTY);
+				} else {
+					slot.onSlotChanged();
+				}
+				if (itemstack1.getCount() == itemstack.getCount()) {
+					return ItemStack.EMPTY;
+				}
+				slot.onTake(playerIn, itemstack1);
+			}
+			return itemstack;
+		}
+
+		@Override /**
+					 * Merges provided ItemStack with the first avaliable one in the
+					 * container/player inventor between minIndex (included) and maxIndex
+					 * (excluded). Args : stack, minIndex, maxIndex, negativDirection. /!\ the
+					 * Container implementation do not check if the item is valid for the slot
+					 */
+		protected boolean mergeItemStack(ItemStack stack, int startIndex, int endIndex, boolean reverseDirection) {
+			boolean flag = false;
+			int i = startIndex;
+			if (reverseDirection) {
+				i = endIndex - 1;
+			}
+			if (stack.isStackable()) {
+				while (!stack.isEmpty()) {
+					if (reverseDirection) {
+						if (i < startIndex) {
+							break;
+						}
+					} else if (i >= endIndex) {
+						break;
+					}
+					Slot slot = this.inventorySlots.get(i);
+					ItemStack itemstack = slot.getStack();
+					if (slot.isItemValid(itemstack) && !itemstack.isEmpty() && areItemsAndTagsEqual(stack, itemstack)) {
+						int j = itemstack.getCount() + stack.getCount();
+						int maxSize = Math.min(slot.getSlotStackLimit(), stack.getMaxStackSize());
+						if (j <= maxSize) {
+							stack.setCount(0);
+							itemstack.setCount(j);
+							slot.putStack(itemstack);
+							flag = true;
+						} else if (itemstack.getCount() < maxSize) {
+							stack.shrink(maxSize - itemstack.getCount());
+							itemstack.setCount(maxSize);
+							slot.putStack(itemstack);
+							flag = true;
+						}
+					}
+					if (reverseDirection) {
+						--i;
+					} else {
+						++i;
+					}
+				}
+			}
+			if (!stack.isEmpty()) {
+				if (reverseDirection) {
+					i = endIndex - 1;
+				} else {
+					i = startIndex;
+				}
+				while (true) {
+					if (reverseDirection) {
+						if (i < startIndex) {
+							break;
+						}
+					} else if (i >= endIndex) {
+						break;
+					}
+					Slot slot1 = this.inventorySlots.get(i);
+					ItemStack itemstack1 = slot1.getStack();
+					if (itemstack1.isEmpty() && slot1.isItemValid(stack)) {
+						if (stack.getCount() > slot1.getSlotStackLimit()) {
+							slot1.putStack(stack.split(slot1.getSlotStackLimit()));
+						} else {
+							slot1.putStack(stack.split(stack.getCount()));
+						}
+						slot1.onSlotChanged();
+						flag = true;
+						break;
+					}
+					if (reverseDirection) {
+						--i;
+					} else {
+						++i;
+					}
+				}
+			}
+			return flag;
+		}
+
+		@Override
+		public void onContainerClosed(PlayerEntity playerIn) {
+			super.onContainerClosed(playerIn);
+			internal.closeInventory(playerIn);
+			if ((internal instanceof Inventory) && (playerIn instanceof ServerPlayerEntity)) {
+				this.clearContainer(playerIn, playerIn.world, internal);
+			}
+		}
+
+		private void slotChanged(int slotid, int ctype, int meta) {
+			if (this.world != null && this.world.isRemote) {
+				ChaliceCraft.PACKET_HANDLER.sendToServer(new GUISlotChangedMessage(slotid, x, y, z, ctype, meta));
+				handleSlotAction(entity, slotid, ctype, meta, x, y, z);
+			}
 		}
 	}
 
