@@ -241,7 +241,7 @@
       "name": "NetherForge",
       "type": "block",
       "sortid": 26,
-      "compiles": true,
+      "compiles": false,
       "locked_code": false,
       "ids": {}
     },
@@ -350,7 +350,7 @@
       }
     },
     {
-      "name": "NetherForgeUpdateTick",
+      "name": "NetherForgeTick",
       "type": "procedure",
       "sortid": 34,
       "compiles": true,
